@@ -171,7 +171,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * @param typeface The typeface to use
      */
     fun setTextTypeface(typeface: Typeface) {
-        text.typeface = typeface
+        subText.typeface = typeface
     }
 
     /**
@@ -181,8 +181,8 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      */
     fun setText(text: String) {
         if (!TextUtils.isEmpty(text)) {
-            this.text.visibility = View.VISIBLE
-            this.text.text = text
+            this.subText.visibility = View.VISIBLE
+            this.subText.text = text
         }
     }
 
@@ -193,9 +193,9 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      */
     fun setTextAppearance(@StyleRes textAppearance: Int) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            text.setTextAppearance(textAppearance)
+            subText.setTextAppearance(textAppearance)
         } else {
-            text.setTextAppearance(text.context, textAppearance)
+            subText.setTextAppearance(subText.context, textAppearance)
         }
     }
 
