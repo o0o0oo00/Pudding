@@ -42,6 +42,9 @@ class Pudding : LifecycleObserver {
         // time over dismiss
         choco.postDelayed({
             log("postDelayed hide")
+            if (choco.enableInfiniteDuration){
+                return@postDelayed
+            }
             choco.hide(windowManager ?: return@postDelayed)
         }, Choco.DISPLAY_TIME)
 
@@ -104,8 +107,8 @@ class Pudding : LifecycleObserver {
 
         layoutParams.flags =
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or // 不获取焦点，以便于在弹出的时候 下层界面仍然可以进行操作
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
-                WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR // 确保你的内容不会被装饰物(如状态栏)掩盖.
+                    WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
+                    WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR // 确保你的内容不会被装饰物(如状态栏)掩盖.
         // popWindow的层级为 TYPE_APPLICATION_PANEL
         //        TODO("adjust permission to choice type")
 
@@ -124,7 +127,7 @@ class Pudding : LifecycleObserver {
     }
 
 
-    // 高阶函数 配置 warn属性
+    // 指定使用者的高阶函数named dsl 配置 warn属性
     fun config(block: Choco.() -> Unit): Pudding {
         choco.apply(block)
         return this

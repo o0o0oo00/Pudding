@@ -2,24 +2,26 @@ package com.zcy.pudding
 
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.Typeface
+import android.graphics.*
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Handler
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.util.Log
+import android.view.HapticFeedbackConstants
 import android.view.View
 import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.view.animation.AnticipateOvershootInterpolator
 import android.view.animation.OvershootInterpolator
+import android.widget.Button
 import android.widget.FrameLayout
 import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.view.ContextThemeWrapper
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
 import com.zcy.pudding.lib.R
 import kotlinx.android.synthetic.main.layout_choco.view.*
 
@@ -34,6 +36,13 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
 
     private lateinit var animEnter: ObjectAnimator
     private val animEnterInterceptor = OvershootInterpolator()
+    private var enableIconPulse = true
+
+    var enableInfiniteDuration = false
+    private var enableProgress = false
+    private var enabledVibration = false
+    private var buttons = ArrayList<Button>()
+
 
     init {
         inflate(context, R.layout.layout_choco, this)
@@ -43,7 +52,26 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * 初始化配置，如loading 的显示 与 icon的动画 触摸反馈等
      */
     private fun initConfiguration() {
-        icon?.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alerter_pulse))
+
+        if (enableIconPulse) {
+            icon?.startAnimation(AnimationUtils.loadAnimation(context, R.anim.alerter_pulse))
+        }
+
+        if (enableProgress) {
+            icon.visibility = View.GONE
+            progress.visibility = View.VISIBLE
+        } else {
+            icon.visibility = View.VISIBLE
+            progress.visibility = View.GONE
+        }
+
+        buttons.forEach {
+            body.addView(it)
+        }
+
+        if (enabledVibration) {
+            performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+        }
     }
 
     override fun onAttachedToWindow() {
@@ -269,16 +297,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * @param shouldPulse True if the icon should be animated
      */
     fun pulseIcon(shouldPulse: Boolean) {
-//        this.enableIconPulse = shouldPulse
-    }
-
-    /**
-     * Set if the duration of the Choco is infinite
-     *
-     * @param enableInfiniteDuration True if the duration of the Choco is infinite
-     */
-    fun setEnableInfiniteDuration(enableInfiniteDuration: Boolean) {
-//        this.enableInfiniteDuration = enableInfiniteDuration
+        this.enableIconPulse = shouldPulse
     }
 
     /**
@@ -287,7 +306,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * @param enableProgress True to enable, False to disable
      */
     fun setEnableProgress(enableProgress: Boolean) {
-//        this.enableProgress = enableProgress
+        this.enableProgress = enableProgress
     }
 
     /**
@@ -296,7 +315,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * @param color The color resource
      */
     fun setProgressColorRes(@ColorRes color: Int) {
-//        pbProgress?.progressDrawable?.colorFilter = LightingColorFilter(MUL, ContextCompat.getColor(context, color))
+        progress?.progressDrawable?.colorFilter = LightingColorFilter(MUL, ContextCompat.getColor(context, color))
     }
 
     /**
@@ -305,7 +324,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * @param color The color resource
      */
     fun setProgressColorInt(@ColorInt color: Int) {
-//        pbProgress?.progressDrawable?.colorFilter = LightingColorFilter(MUL, color)
+        progress?.progressDrawable?.colorFilter = LightingColorFilter(MUL, color)
     }
 
     /**
@@ -313,8 +332,8 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      *
      * @param vibrationEnabled True to enable, false to disable
      */
-    fun setVibrationEnabled(vibrationEnabled: Boolean) {
-//        this.vibrationEnabled = vibrationEnabled
+    fun setEnabledVibration(enabledVibration: Boolean) {
+        this.enabledVibration = enabledVibration
     }
 
     /**
@@ -323,25 +342,26 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
      * @param text The text to display on the button
      * @param onClick The on click listener
      */
-//    fun addButton(text: String, @StyleRes style: Int, onClick: View.OnClickListener) {
-//        Button(ContextThemeWrapper(context, style), null, style).apply {
-//            this.text = text
-//            this.setOnClickListener(onClick)
-//
-//            buttons.add(this)
-//        }
-//
-//        // Alter padding
-//        flChocoBackground?.apply {
-//            this.setPadding(this.paddingLeft, this.paddingTop, this.paddingRight, this.paddingBottom / 2)
-//        }
-//    }
+    fun addButton(text: String, @StyleRes style: Int, onClick: View.OnClickListener) {
+        Button(ContextThemeWrapper(context, style), null, style).apply {
+            this.text = text
+            this.setOnClickListener(onClick)
+
+            buttons.add(this)
+        }
+
+        // Alter padding
+        body?.apply {
+            this.setPadding(this.paddingLeft, this.paddingTop, this.paddingRight, this.paddingBottom / 2)
+        }
+    }
 
 
     companion object {
         private val TAG = Choco::class.java.simpleName
         const val DISPLAY_TIME: Long = 3000
         const val ANIMATION_DURATION: Long = 500
+        private const val MUL = -0x1000000
 
     }
 

@@ -6,38 +6,71 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="match_parent"
+        android:paddingTop="@dimen/small_margin"
         tools:context=".demo.MainActivity">
 
     <Button
-            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@string/default_pudding"
             android:onClick="click1"
             android:textAllCaps="false"
     />
+
     <Button
-            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@string/color_background"
+            android:onClick="click2"
             android:textAllCaps="false"
     />
+
     <Button
-            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@string/icon_custom"
+            android:onClick="click3"
             android:textAllCaps="false"
     />
+
     <Button
-            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@string/verbose_text"
+            android:onClick="click4"
             android:textAllCaps="false"
     />
+
     <Button
-            android:layout_width="wrap_content"
+            android:layout_margin="@dimen/small_margin"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hello World!"
+            android:text="@string/infinite_pudding"
+            android:onClick="click5"
             android:textAllCaps="false"
     />
+
+    <Button
+            android:layout_margin="@dimen/small_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"
+            android:onClick="click6"
+            android:textAllCaps="false"
+    />
+
+    <Button
+            android:layout_margin="@dimen/small_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/start_activity"
+            android:onClick="startAnActivity"
+            android:textAllCaps="false"
+    />
+
 
 </LinearLayout>
