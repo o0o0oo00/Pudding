@@ -28,3 +28,11 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
    - [ ] 直接顶掉上一条，上一条渐变消失
 3. 左右/上下滑动消失动画
 4. 配合[FancyDialog](https://github.com/o0o0oo00/FancyDialog)实现 Pudding cover dialog
+
+
+
+存在 的问题：
+
+- [ ] 不同的Activity对应的WindowManager是否相同
+- [ ] 不同的WindowManager为什么可以移除对方的View
+- [ ] 如何去维护一个Pudding队列

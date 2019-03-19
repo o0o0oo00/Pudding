@@ -127,6 +127,7 @@ class Pudding : LifecycleObserver {
         choco = Choco(activity)
         windowManager = activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         log("setActivity windowManager = $windowManager")
+
         activity.lifecycle.addObserver(this)
 
 
@@ -156,6 +157,7 @@ class Pudding : LifecycleObserver {
         // remove before pudding
         private fun clearBeforePudding(activity: AppCompatActivity) {
             (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).also { windowManager ->
+                log("windowManager = $windowManager")
                 log("listPudding size = ${listPudding.size}")
                 if (listPudding.size <= 1) return@also
 
