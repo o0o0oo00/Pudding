@@ -42,7 +42,7 @@ class Pudding : LifecycleObserver {
         // time over dismiss
         choco.postDelayed({
             log("postDelayed hide")
-            if (choco.enableInfiniteDuration){
+            if (choco.enableInfiniteDuration) {
                 return@postDelayed
             }
             choco.hide(windowManager ?: return@postDelayed)
@@ -119,18 +119,15 @@ class Pudding : LifecycleObserver {
     }
 
     // must invoke first
-    private fun setActivity(activity: AppCompatActivity) {
+    private fun setActivity(activity: AppCompatActivity, block: Choco.() -> Unit) {
         activityWeakReference = WeakReference(activity)
         choco = Choco(activity)
         windowManager = activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         activity.lifecycle.addObserver(this)
-    }
 
 
-    // 指定使用者的高阶函数named dsl 配置 warn属性
-    fun config(block: Choco.() -> Unit): Pudding {
+        // 指定使用者的高阶函数named dsl 配置 warn属性
         choco.apply(block)
-        return this
     }
 
     companion object {
@@ -142,9 +139,9 @@ class Pudding : LifecycleObserver {
         private var activityWeakReference: WeakReference<Activity>? = null
 
         @JvmStatic
-        fun create(activity: AppCompatActivity): Pudding {
+        fun create(activity: AppCompatActivity, block: Choco.() -> Unit): Pudding {
             val pudding = Pudding()
-            pudding.setActivity(activity)
+            pudding.setActivity(activity, block)
             return pudding
         }
 

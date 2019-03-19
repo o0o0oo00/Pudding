@@ -70,5 +70,16 @@
                 app:layout_constraintGuide_percent="0.11"/>
 
 
+        <LinearLayout
+                android:id="@+id/buttonContainer"
+                app:layout_constraintTop_toBottomOf="@+id/subText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:orientation="horizontal">
+
+        </LinearLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

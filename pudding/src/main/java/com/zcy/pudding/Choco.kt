@@ -66,7 +66,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         }
 
         buttons.forEach {
-            body.addView(it)
+            buttonContainer.addView(it)
         }
 
         if (enabledVibration) {
@@ -346,14 +346,18 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         Button(ContextThemeWrapper(context, style), null, style).apply {
             this.text = text
             this.setOnClickListener(onClick)
-
             buttons.add(this)
         }
 
-        // Alter padding
-        body?.apply {
-            this.setPadding(this.paddingLeft, this.paddingTop, this.paddingRight, this.paddingBottom / 2)
-        }
+//        // Alter padding
+//        body?.apply {
+//            this.setPadding(this.paddingLeft, this.paddingTop, this.paddingRight, this.paddingBottom / 2)
+//        }
+    }
+
+    // 供外部Button 主动调用dismiss()
+    fun hide(){
+        body.performClick()
     }
 
 

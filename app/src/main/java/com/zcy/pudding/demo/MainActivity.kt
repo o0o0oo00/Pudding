@@ -2,11 +2,10 @@ package com.zcy.pudding.demo
 
 import android.content.Intent
 import android.graphics.Typeface
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.style.TextAppearanceSpan
 import android.view.View
-import androidx.core.view.isInvisible
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.zcy.pudding.Pudding
 import com.zcy.pudding.R
 
@@ -20,57 +19,69 @@ class MainActivity : AppCompatActivity() {
 
     // 默认形式
     fun click1(view: View) {
-        Pudding.create(this)
-            .config {
-                setTitle("This is Title")
-                setText("this is text")
-            }
+        Pudding.create(this) {
+            setTitle("This is Title")
+            setText("this is text")
+        }
             .show()
     }
 
     // 设置背景颜色、字体
     fun click2(view: View) {
-        Pudding.create(this)
-            .config {
-                setChocoBackgroundColor(resources.getColor(R.color.colorAccent))
-                setTitleTypeface(Typeface.DEFAULT_BOLD)
-            }.show()
+        Pudding.create(this) {
+            setChocoBackgroundColor(resources.getColor(R.color.colorAccent))
+            setTitleTypeface(Typeface.DEFAULT_BOLD)
+        }.show()
     }
 
     // 更改icon
     fun click3(view: View) {
-        Pudding.create(this)
-            .config {
-                setTitle("Choco Title")
-                setIcon(R.drawable.ic_event_available_black_24dp)
-            }.show()
+        Pudding.create(this) {
+            setTitle("Choco Title")
+            setText("this is text")
+            setIcon(R.drawable.ic_event_available_black_24dp)
+        }.show()
     }
 
     // 长说明 文字形式
     fun click4(view: View) {
-        Pudding.create(this)
-            .config {
-                setText(R.string.verbose_text_text)
-                setIcon(R.drawable.ic_event_available_black_24dp)
-            }.show()
+        Pudding.create(this) {
+            setText(R.string.verbose_text_text)
+            setIcon(R.drawable.ic_event_available_black_24dp)
+        }.show()
     }
 
     // 永久显示
     fun click5(view: View) {
-        Pudding.create(this)
-            .config {
-                setTitle("Choco Title")
-                enableInfiniteDuration = true
-            }.show()
+        Pudding.create(this) {
+            setTitle("Choco Title")
+            enableInfiniteDuration = true
+        }.show()
     }
 
     // loading 形式
     fun click6(view: View) {
-        Pudding.create(this)
-            .config {
-                setTitle("Choco Title")
-                setEnableProgress(true)
-            }.show()
+        Pudding.create(this) {
+            setTitle("Choco Title")
+            setEnableProgress(true)
+        }.show()
+    }
+
+    // loading 形式
+    fun click7(view: View) {
+        Pudding.create(this) {
+            setTitle("Choco Title")
+            setText("This is Text , it's very short and I don't like short \n This is Text , it's very short and I don't like short")
+            enableInfiniteDuration = true
+            addButton("OK", R.style.PuddingButton, View.OnClickListener {
+                hide()
+                Toast.makeText(this@MainActivity, "click ok", Toast.LENGTH_SHORT).show()
+            })
+            addButton("NO", R.style.PuddingButton, View.OnClickListener {
+                Toast.makeText(this@MainActivity, "click no", Toast.LENGTH_SHORT).show()
+            })
+
+        }.show()
     }
 
 

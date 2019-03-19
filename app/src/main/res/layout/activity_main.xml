@@ -67,6 +67,15 @@
             android:layout_margin="@dimen/small_margin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/with_button"
+            android:onClick="click7"
+            android:textAllCaps="false"
+    />
+
+    <Button
+            android:layout_margin="@dimen/small_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="@string/start_activity"
             android:onClick="startAnActivity"
             android:textAllCaps="false"

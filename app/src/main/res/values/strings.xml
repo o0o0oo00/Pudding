@@ -8,4 +8,5 @@
     <string name="start_activity">Start An Activity</string>
     <string name="loading">Loading Pudding</string>
     <string name="verbose_text_text">This is a verbose text . And has a lot of words . You can see this text is so long . 男人最怕的就是短啊。 所以长一点最好了，我喜欢，^_^</string>
+    <string name="with_button">With Button</string>
 </resources>
