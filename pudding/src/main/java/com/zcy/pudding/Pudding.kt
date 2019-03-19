@@ -160,6 +160,7 @@ class Pudding : LifecycleObserver {
                 if (listPudding.size <= 1) return@also
 
                 // todo how to remove pudding from listPudding in right time
+                // 或者 怎么遍历当前window下的所有Pudding
                 for (i in 0 until listPudding.size) {
 
                     if (!listPudding[i].choco.isAttachedToWindow) continue
