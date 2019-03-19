@@ -4,12 +4,15 @@ import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Color.alpha
 import android.graphics.PixelFormat
+import android.os.Handler
 import android.util.Log
 import android.view.Gravity
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.ViewCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -123,10 +126,11 @@ class Pudding : LifecycleObserver {
         activityWeakReference = WeakReference(activity)
         choco = Choco(activity)
         windowManager = activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        log("setActivity windowManager = $windowManager")
         activity.lifecycle.addObserver(this)
 
 
-        // 指定使用者的高阶函数named dsl 配置 warn属性
+        // 指定使用者的高阶函数named dsl 配置 choco属性
         choco.apply(block)
     }
 
@@ -138,12 +142,37 @@ class Pudding : LifecycleObserver {
 
         private var activityWeakReference: WeakReference<Activity>? = null
 
+        private val listPudding: MutableList<Pudding> = mutableListOf()
+
         @JvmStatic
         fun create(activity: AppCompatActivity, block: Choco.() -> Unit): Pudding {
             val pudding = Pudding()
             pudding.setActivity(activity, block)
+            clearBeforePudding(activity)
+            Handler().postDelayed({ listPudding.add(pudding) }, 60)
             return pudding
         }
+
+        // remove before pudding
+        private fun clearBeforePudding(activity: AppCompatActivity) {
+            (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).also { windowManager ->
+                log("listPudding size = ${listPudding.size}")
+                if (listPudding.size <= 1) return@also
+
+                // todo how to remove pudding from listPudding in right time
+                for (i in 0 until listPudding.size) {
+
+                    if (!listPudding[i].choco.isAttachedToWindow) continue
+
+                    ViewCompat.animate(listPudding[i].choco).alpha(0F).withEndAction {
+                        if (listPudding[i].choco.isAttachedToWindow) {
+                            windowManager.removeViewImmediate(listPudding[i].choco)
+                        }
+                    }
+                }
+            }
+        }
+
 
     }
 }

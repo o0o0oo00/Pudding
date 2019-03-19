@@ -43,6 +43,8 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
     private var enabledVibration = false
     private var buttons = ArrayList<Button>()
 
+    private var onlyOnce = true
+
 
     init {
         inflate(context, R.layout.layout_choco, this)
@@ -88,10 +90,14 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
         Log.e(TAG, "onMeasure")
-        animEnter = ObjectAnimator.ofFloat(this@Choco, "translationY", -this@Choco.measuredHeight.toFloat(), -80F)
-        animEnter.interpolator = animEnterInterceptor
-        animEnter.duration = ANIMATION_DURATION
-        animEnter.start()
+
+        if (onlyOnce) {
+            onlyOnce = false
+            animEnter = ObjectAnimator.ofFloat(this@Choco, "translationY", -this@Choco.measuredHeight.toFloat(), -80F)
+            animEnter.interpolator = animEnterInterceptor
+            animEnter.duration = ANIMATION_DURATION
+            animEnter.start()
+        }
     }
 
     fun hide(windowManager: WindowManager, removeNow: Boolean = false) {
@@ -356,7 +362,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
     }
 
     // 供外部Button 主动调用dismiss()
-    fun hide(){
+    fun hide() {
         body.performClick()
     }
 
