@@ -44,10 +44,10 @@ class Pudding : LifecycleObserver {
 
         // time over dismiss
         choco.postDelayed({
-            log("postDelayed hide")
             if (choco.enableInfiniteDuration) {
                 return@postDelayed
             }
+            log("postDelayed hide")
             choco.hide(windowManager ?: return@postDelayed)
         }, Choco.DISPLAY_TIME)
 
@@ -125,7 +125,7 @@ class Pudding : LifecycleObserver {
     private fun setActivity(activity: AppCompatActivity, block: Choco.() -> Unit) {
         activityWeakReference = WeakReference(activity)
         choco = Choco(activity)
-        windowManager = activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        windowManager = activity.windowManager
         log("setActivity windowManager = $windowManager")
 
         activity.lifecycle.addObserver(this)
@@ -143,39 +143,55 @@ class Pudding : LifecycleObserver {
 
         private var activityWeakReference: WeakReference<Activity>? = null
 
-        private val listPudding: MutableList<Pudding> = mutableListOf()
+        // each Activity hold itself pudding list
+        private val puddingMap: MutableMap<String, MutableList<Pudding>> = mutableMapOf()
+
+        private val puddingMapX: MutableMap<String, Pudding> = mutableMapOf()
 
         @JvmStatic
         fun create(activity: AppCompatActivity, block: Choco.() -> Unit): Pudding {
             val pudding = Pudding()
             pudding.setActivity(activity, block)
-            clearBeforePudding(activity)
-            Handler().postDelayed({ listPudding.add(pudding) }, 60)
-            return pudding
-        }
 
-        // remove before pudding
-        private fun clearBeforePudding(activity: AppCompatActivity) {
-            (activity.getSystemService(Context.WINDOW_SERVICE) as WindowManager).also { windowManager ->
-                log("windowManager = $windowManager")
-                log("listPudding size = ${listPudding.size}")
-                if (listPudding.size <= 1) return@also
-
-                // todo how to remove pudding from listPudding in right time
-                // 或者 怎么遍历当前window下的所有Pudding
-                for (i in 0 until listPudding.size) {
-
-                    if (!listPudding[i].choco.isAttachedToWindow) continue
-
-                    ViewCompat.animate(listPudding[i].choco).alpha(0F).withEndAction {
-                        if (listPudding[i].choco.isAttachedToWindow) {
-                            windowManager.removeViewImmediate(listPudding[i].choco)
+            Handler().post {
+                puddingMapX[activity.toString()]?.choco?.let {
+                    if (it.isAttachedToWindow) {
+                        ViewCompat.animate(it).alpha(0F).withEndAction {
+                            activity.windowManager.removeViewImmediate(it)
                         }
                     }
                 }
+                puddingMapX[activity.toString()] = pudding
             }
+
+            return pudding
         }
 
+        private fun clearCurrent(activity: AppCompatActivity) {
+            activity.windowManager?.also { windowManager ->
+
+                puddingMap[activity.toString()]?.also {
+                    log("$activity pudding size = ${it.size}")
+                    if (it.size <= 1) return
+
+                    for (i in it.size - 1 downTo 0) {
+                        if (!it[i].choco.isAttachedToWindow) continue
+                        log("start animate$i")
+                        ViewCompat.animate(it[i].choco).alpha(0F).withEndAction {
+                            if (it[i].choco.isAttachedToWindow) {
+                                windowManager.removeViewImmediate(it[i].choco)
+                                log("end animate$i")
+
+                            }
+                        }
+                        log("end code$i")
+                    }
+
+                }
+
+
+            }
+        }
 
     }
 }
