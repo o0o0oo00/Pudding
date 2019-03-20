@@ -14,6 +14,10 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 
 * Cover Dialog/PopWindow
 
+### WIKI
+
+[WIKI中文说明](https://github.com/o0o0oo00/Pudding/blob/master/WIKIPAGE.md)
+
 #### TODO
 
 1.  两种addView方式
