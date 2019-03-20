@@ -49,5 +49,6 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 
 - [ ] 如何去维护一个Pudding队列
 
+    - [x] 用一个`Map<string,pudding>`
     - [x] 用 一个`Map<activity,list<pudding>>`
-    - [ ] 什么时间 去clear这个map
+        - [ ] 什么时间 去clear这个map
