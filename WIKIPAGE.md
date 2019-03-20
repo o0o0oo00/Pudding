@@ -54,6 +54,47 @@ DecorView添加到WIndowManager上
 
 #### Window 层级关系
 
+我们知道View在window上的显示是有层级顺序的，层级高的覆盖在层级低的View之上。
+Activity的层级为 `TYPE_APPLICATION` 
+
+PopupWindow的层级为`TYPE_APPLICATION_PANEL` 
+
+Dialog的层级为`TYPE_SYSTEM_DIALOG`
+
+而我们只需要添加一个层级为`TYPE_APPLICATION_SUB_PANEL`的View到Window上面即可
+
+##### 为什么不把View的层级设置的高一点呢？
+
+```kotlin
+android.view.WindowManager$BadTokenException: Unable to add window android.view.ViewRootImpl$W@308ebe3 -- permission denied for window type 2000
+```
+
+我们在这里验证了View的层级为2000以下的时候是不需要申请权限的
+
 #### Window Lack
 
-#### View Lifecycle
+这里的处理方式是将传入的Activity绑定lifecycle，然后在onDestroy的时候，将**Pudding**`dismiss`掉
+
+**Pudding**类继承`LifecycleObserver`
+
+```kotlin
+class Pudding : LifecycleObserver
+```
+
+绑定生命周期，并且Activity的每个生命周期都可以通知到**Pudding**
+
+```kotlin
+activity.lifecycle.addObserver(this)
+```
+
+监听状态
+
+```
+// window manager must associate activity's lifecycle
+@OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+fun onDestroy(owner: LifecycleOwner) {
+choco.hide(windowManager ?: return, true)
+owner.lifecycle.removeObserver(this) // 移除监听事件
+}
+```
+
