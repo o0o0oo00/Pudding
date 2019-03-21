@@ -19,7 +19,51 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 
 ### Usage
 
-常用的几种
+GIF可能要等会就顺畅了，一开始可能会比较迟钝 (●ﾟωﾟ●)
+
+常见的可配置的几种形式
+
+Common configurable Pudding 
+
+<img src="demogif/first3.gif" width="300"/>
+
+```kotlin
+Pudding.create(this) {
+    setTitle("This is Title")
+    setText("this is text")
+}.show()
+```
+
+```kotlin
+Pudding.create(this) {
+    setChocoBackgroundColor(resources.getColor(R.color.colorAccent))
+    setTitleTypeface(Typeface.DEFAULT_BOLD)
+}.show()
+```
+
+```kotlin
+Pudding.create(this) {
+    setTitle("Choco Title")
+    setText("this is text")
+    setIcon(R.drawable.ic_event_available_black_24dp)
+}.show()
+```
+
+
+
+
+
+配合[FancyDialog](https://github.com/o0o0oo00/FancyDialog)可实现**Pudding**显示在**Dialog**的阴影之上
+
+With [FancyDialog](https://github.com/o0o0oo00/FancyDialog), Pudding can be displayed above the shadow of Dialog.
+
+<img src="demogif/withDialog.gif" width="300"/>
+
+
+
+每个Activity拥有各自的Pudding，互相之间不影响
+
+Each Activity has its own Pudding, which does not affect each other.
 
 
 
@@ -52,13 +96,16 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 
 
 
-存在 的问题：
+#### 可能会有的疑问：
+
+- [x] **Pudding**使用的是WindowManager 难道不需要申请权限吗？
+  - [x] **Pudding**使用`WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL`的层级低于系统级层级`TYPE_SYSTEM_ALERT`也就是在2000之下，是不需要申请权限的。
 
 - [x] 不同的Activity对应的WindowManager是否相同
 
     - [x] 相同的WindowManager，不同的window
 
-        他们所依赖的WindowManager，是通过context.getSystemService()方法获取的，所以不管有多少Activity，Dialog，WindowManager的实例只有一个
+    他们所依赖的WindowManager，是通过context.getSystemService()方法获取的，所以不管有多少Activity，Dialog，WindowManager的实例只有一个
 
 - [x] 不同的WindowManager为什么可以移除对方的View
 
@@ -67,5 +114,4 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 - [ ] 如何去维护一个Pudding队列
 
     - [x] 用一个`Map<string,pudding>`
-    - [x] 用 一个`Map<activity,list<pudding>>`
-        - [ ] 什么时间 去clear这个map
+    - [ ] 什么时间 去clear这个map
