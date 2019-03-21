@@ -21,8 +21,6 @@ import androidx.annotation.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import com.zcy.pudding.lib.R
 import kotlinx.android.synthetic.main.layout_choco.view.*
 
 /**

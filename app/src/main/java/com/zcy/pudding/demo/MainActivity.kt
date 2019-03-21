@@ -5,9 +5,9 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.zcy.pudding.Pudding
-import com.zcy.pudding.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -84,6 +84,16 @@ class MainActivity : AppCompatActivity() {
         }.show()
     }
 
+    fun showAlertDialog(view: View) {
+        AlertDialog.Builder(this)
+            .setTitle("Title")
+            .setMessage("message")
+            .create().show()
+    }
+
+    fun showFancyDialog(view: View) {
+
+    }
 
     // 启动一个Activity ,验证是否存在lack window exception
     fun startAnActivity(view: View) {

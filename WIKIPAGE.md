@@ -35,11 +35,23 @@ PhoneWindow中 包含一个DecorView，如果没有就新建一个，通过`inst
 
 `onResourcesLoaded`内部实现最终的`addView(root, 0, new ViewGroup.LayoutParams(MATCH_PARENT, MATCH_PARENT));`
 
-ActivityThread.java
+
 
 DecorView添加到WIndowManager上
 
-只有再Activity的`makeVisible()`被调用的时候，DecorView才会被addview进WIndowmanager
+只有在Activity的`makeVisible()`被调用的时候，DecorView才会被addview进WIndowmanager
+
+```java
+    void makeVisible() {
+        if (!mWindowAdded) {
+            ViewManager wm = getWindowManager();
+            wm.addView(mDecor, getWindow().getAttributes());
+            mWindowAdded = true;
+        }
+        mDecor.setVisibility(View.VISIBLE);
+    }
+
+```
 
 
 
@@ -71,7 +83,7 @@ android.view.WindowManager$BadTokenException: Unable to add window android.view.
 
 我们在这里验证了View的层级为2000以下的时候是不需要申请权限的
 
-#### Window Lack
+#### Window Leak
 
 这里的处理方式是将传入的Activity绑定lifecycle，然后在onDestroy的时候，将**Pudding**`dismiss`掉
 
