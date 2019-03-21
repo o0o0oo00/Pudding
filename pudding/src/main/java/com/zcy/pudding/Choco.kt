@@ -24,7 +24,7 @@ import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.layout_choco.view.*
 
 /**
- * @author:         zhaochunyu
+ * @author:         https://github.com/o0o0oo00
  * @description:    custom Choco view
  *
  * @date:           2019/3/15

@@ -1,1 +1,1 @@
-include ':app', ':pudding'
+include ':app', ':pudding', ':fancydialog'

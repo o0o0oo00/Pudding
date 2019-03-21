@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.zcy.fancydialog.askDialog
 import com.zcy.pudding.Pudding
 
 class MainActivity : AppCompatActivity() {
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         Pudding.create(this) {
             setTitle("Choco Title")
             setText("This is Text , it's very short and I don't like short \n This is Text , it's very short and I don't like short")
+            setChocoBackgroundColor(resources.getColor(R.color.color_FFCC00))
             enableInfiniteDuration = true
             addButton("OK", R.style.PuddingButton, View.OnClickListener {
                 hide()
@@ -92,7 +94,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showFancyDialog(view: View) {
-
+        askDialog(supportFragmentManager) {
+            mTitle = "FancyDialog"
+            mMessage = "Use DSL it's so Awesome"
+            onlySure = true
+            lowerBackground = true
+        }
     }
 
     // 启动一个Activity ,验证是否存在lack window exception

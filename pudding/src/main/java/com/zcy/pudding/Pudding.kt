@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.layout_choco.view.*
 import java.lang.ref.WeakReference
 
 /**
- * @author:         zhaochunyu
+ * @author:         https://github.com/o0o0oo00
  * @description:    Choco helper class
  * @date:           2019/3/15
  */
@@ -99,6 +99,7 @@ class Pudding : LifecycleObserver {
 
     companion object {
 
+        @JvmStatic
         private fun log(e: String) {
             Log.e(this::class.java.simpleName, "${this} $e")
         }
