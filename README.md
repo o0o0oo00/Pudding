@@ -17,6 +17,14 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 
 [中文说明](https://github.com/o0o0oo00/Pudding/blob/master/WIKIPAGE.md)
 
+### Usage
+
+常用的几种
+
+
+
+<img src="demogif/startActivity.gif" width="300" />
+
 #### TODO
 
 1. 两种addView方式
