@@ -118,7 +118,9 @@ class Pudding : LifecycleObserver {
                 puddingMapX[activity.toString()]?.choco?.let {
                     if (it.isAttachedToWindow) {
                         ViewCompat.animate(it).alpha(0F).withEndAction {
-                            activity.windowManager.removeViewImmediate(it)
+                            if (it.isAttachedToWindow){
+                                activity.windowManager.removeViewImmediate(it)
+                            }
                         }
                     }
                 }

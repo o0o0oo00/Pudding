@@ -24,10 +24,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="@+id/content"
-                app:layout_constraintStart_toStartOf="@id/icon"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/content"
                 app:srcCompat="@drawable/alerter_ic_notifications"/>
 
+        <Space
+                android:id="@+id/baseDot"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="@+id/content"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/default_margin"
+                app:layout_constraintBottom_toBottomOf="@+id/content"
+                android:layout_height="wrap_content"
+        />
         <ProgressBar
                 android:id="@+id/progress"
                 android:layout_width="32dp"
@@ -36,17 +45,16 @@
                 android:indeterminateTint="@android:color/white"
                 android:progressTint="@android:color/white"
                 app:layout_constraintTop_toTopOf="@+id/content"
-                app:layout_constraintStart_toStartOf="@id/icon"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/content"/>
 
         <LinearLayout
                 android:id="@+id/content"
                 android:layout_width="0dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/icon"
+                app:layout_constraintStart_toEndOf="@id/baseDot"
                 app:layout_constraintTop_toTopOf="parent"
-                android:gravity="start"
-                android:layout_marginStart="@dimen/default_margin"
+                android:layout_marginStart="@dimen/big_margin"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
 

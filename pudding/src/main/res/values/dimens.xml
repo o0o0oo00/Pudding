@@ -11,5 +11,6 @@
     <dimen name="small_margin">6dp</dimen>
     <dimen name="mini_margin">2dp</dimen>
     <dimen name="default_margin">10dp</dimen>
+    <dimen name="big_margin">22dp</dimen>
 
 </resources>
