@@ -23,9 +23,9 @@
                 android:id="@+id/icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/small_margin"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/content"
+                app:layout_constraintStart_toStartOf="@id/icon"
+                app:layout_constraintBottom_toBottomOf="@+id/content"
                 app:srcCompat="@drawable/alerter_ic_notifications"/>
 
         <ProgressBar
@@ -35,44 +35,48 @@
                 android:visibility="invisible"
                 android:indeterminateTint="@android:color/white"
                 android:progressTint="@android:color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="@+id/content"
+                app:layout_constraintStart_toStartOf="@id/icon"
+                app:layout_constraintBottom_toBottomOf="@+id/content"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/text"
+        <LinearLayout
+                android:id="@+id/content"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:layout_marginStart="@dimen/small_margin"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/textSize"
-                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/icon"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Title"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/subText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/subTextSize"
-                android:visibility="gone"
-                app:layout_constraintStart_toStartOf="@+id/text"
-                app:layout_constraintTop_toBottomOf="@+id/text"
-                tools:text="subTitle"/>
-
-        <androidx.constraintlayout.widget.Guideline
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/guideline"
+                android:gravity="start"
+                android:layout_marginStart="@dimen/default_margin"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.11"/>
+                android:layout_height="wrap_content">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="@dimen/textSize"
+                    tools:text="Title"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/subText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:layout_marginStart="@dimen/small_margin"
+                    android:textColor="@color/colorWhite"
+                    android:layout_marginTop="@dimen/mini_margin"
+                    android:textSize="@dimen/subTextSize"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    tools:text="123123123"/>
+        </LinearLayout>
 
         <LinearLayout
                 android:id="@+id/buttonContainer"
-                app:layout_constraintTop_toBottomOf="@+id/subText"
+                app:layout_constraintTop_toBottomOf="@+id/content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="end"

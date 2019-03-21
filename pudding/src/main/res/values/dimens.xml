@@ -2,13 +2,14 @@
 <resources>
 
     <dimen name="pudding_text_padding_top">70dp</dimen>
-    <dimen name="pudding_padding_default">16dp</dimen>
+    <dimen name="pudding_padding_default">20dp</dimen>
     <dimen name="pudding_text_margin_start">40dp</dimen>
 
-    <dimen name="textSize">20sp</dimen>
+    <dimen name="textSize">18sp</dimen>
     <dimen name="subTextSize">14sp</dimen>
 
     <dimen name="small_margin">6dp</dimen>
+    <dimen name="mini_margin">2dp</dimen>
     <dimen name="default_margin">10dp</dimen>
 
 </resources>

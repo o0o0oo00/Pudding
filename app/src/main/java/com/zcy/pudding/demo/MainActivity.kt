@@ -88,8 +88,8 @@ class MainActivity : AppCompatActivity() {
 
     fun showAlertDialog(view: View) {
         AlertDialog.Builder(this)
-            .setTitle("Title")
-            .setMessage("message")
+            .setTitle("AlertDialog")
+            .setMessage("normal AlertDialog will cover Pudding")
             .create().show()
     }
 

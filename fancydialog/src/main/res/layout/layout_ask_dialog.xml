@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" xmlns:tools="http://schemas.android.com/tools"
+              android:background="@drawable/widget_view_radius"
+              android:gravity="center"
+              android:minWidth="298dp"
+              android:orientation="vertical">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="23dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center"
+        android:lineSpacingExtra="3dp"
+        android:textColor="#333333"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        tools:text="@string/remove_coadmin_ask" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="32dp"
+        android:gravity="center"
+        android:lineSpacingExtra="3dp"
+        android:textColor="#4A4A4A"
+        android:textSize="14sp"
+        android:visibility="gone"
+        tools:text="免费圈子调整到付费以后，将无法再改回免费，确认修改吗？" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:background="#ECECEC" />
+
+    <LinearLayout
+        android:id="@+id/actionLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:text="@string/cancel" />
+
+        <View
+            android:id="@+id/vertical_line"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#ECECEC" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sure"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:text="@string/sure" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
