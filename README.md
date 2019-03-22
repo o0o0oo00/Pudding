@@ -1,17 +1,5 @@
 # Pudding
-
-**Imitate [Alerter](https://github.com/Tapadoo/Alerter) and ☆⌒(*＾-゜)v THX!! a lot** 
-
-### what's different
-
-Use activity decorView we can show a view on top of Activity。but when dialog is showing , its black background will cover the view , that is not cool. so i create this repository to solve this problem , and  I hope it's useful to you
-
-### Something new
-
-* Use DSL style to config `Choco`
-* Show Queue
-* Cover Dialog/PopWindow
-* Don't need to request permission
+[![](https://jitpack.io/v/o0o0oo00/Pudding.svg)](https://jitpack.io/#o0o0oo00/Pudding)
 
 ### WIKI
 
@@ -63,9 +51,6 @@ Pudding.create(this) {
 ```
 
 
-
-
-
 配合[FancyDialog](https://github.com/o0o0oo00/FancyDialog)可实现**Pudding**显示在**Dialog**的阴影之上
 
 With [FancyDialog](https://github.com/o0o0oo00/FancyDialog), Pudding can be displayed above the shadow of Dialog.
@@ -79,8 +64,22 @@ With [FancyDialog](https://github.com/o0o0oo00/FancyDialog), Pudding can be disp
 Each Activity has its own Pudding, which does not affect each other.
 
 
-
 <img src="demogif/startActivity.gif" width="300" />
+
+
+**Imitate [Alerter](https://github.com/Tapadoo/Alerter) and ☆⌒(*＾-゜)v THX!! a lot** 
+
+### what's different
+
+Use activity decorView we can show a view on top of Activity。but when dialog is showing , its black background will cover the view , that is not cool. so i create this repository to solve this problem , and  I hope it's useful to you
+
+### Something new
+
+* Use DSL style to config `Choco`
+* Show Queue
+* Cover Dialog/PopWindow
+* Don't need to request permission
+
 
 #### TODO
 
