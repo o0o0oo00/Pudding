@@ -16,9 +16,6 @@ allprojects {
 
 ```groovy
 implementation 'com.github.o0o0oo00.Pudding:pudding:v1.1.2'
-
-// 如果想使用FancyDialog的话
-implementation 'com.github.o0o0oo00.Pudding:fancydialog:v1.1.2' 
 ```
 
 
