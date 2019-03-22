@@ -24,7 +24,7 @@ android {
 
 dependencies {
     implementation project(':pudding')
-    implementation project(':fancydialog')
+    implementation 'com.github.o0o0oo00:FancyDialog:1.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
