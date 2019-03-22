@@ -1,6 +1,5 @@
 package com.zcy.pudding
 
-import android.app.Activity
 import android.graphics.PixelFormat
 import android.os.Handler
 import android.os.Looper
@@ -99,7 +98,7 @@ class Pudding : LifecycleObserver {
             Log.e(this::class.java.simpleName, "${this} $e")
         }
 
-        private var activityWeakReference: WeakReference<Activity>? = null
+        private var activityWeakReference: WeakReference<AppCompatActivity>? = null
 
         // each Activity hold itself pudding list
         private val puddingMapX: MutableMap<String, Pudding> = mutableMapOf()

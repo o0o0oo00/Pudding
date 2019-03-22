@@ -79,6 +79,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     // loading 形式
+    fun click9(view: View) {
+        Pudding.create(this) {
+            setTitle("Choco Title")
+            setText("This is Text , it's very short and I don't like short \n This is Text , it's very short and I don't like short")
+            onShow {
+                Toast.makeText(this@MainActivity, "onShowListener", Toast.LENGTH_SHORT).show()
+            }
+            onDismiss {
+                Toast.makeText(this@MainActivity, "onDismissListener", Toast.LENGTH_SHORT).show()
+            }
+        }.show()
+    }
+
+    // loading 形式
     fun click7(view: View) {
         Pudding.create(this) {
             setTitle("Choco Title")

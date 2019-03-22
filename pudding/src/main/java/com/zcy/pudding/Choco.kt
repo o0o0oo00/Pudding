@@ -41,6 +41,9 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
     private var enabledVibration = false
     private var buttons = ArrayList<Button>()
 
+    private var onShow: (() -> Unit)? = null
+    private var onDismiss: (() -> Unit)? = null
+
     private var onlyOnce = true
 
 
@@ -78,6 +81,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         super.onAttachedToWindow()
         Log.e(TAG, "onAttachedToWindow")
         initConfiguration()
+        onShow?.invoke()
     }
 
     override fun onDetachedFromWindow() {
@@ -98,6 +102,14 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         }
     }
 
+    fun onShow(onShow: () -> Unit) {
+        this.onShow = onShow
+    }
+
+    fun onDismiss(onDismiss: () -> Unit) {
+        this.onDismiss = onDismiss
+    }
+
     fun hide(removeNow: Boolean = false) {
         if (!this@Choco.isAttachedToWindow) {
             return
@@ -105,6 +117,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         val windowManager = (this.context.getSystemService(Context.WINDOW_SERVICE) as? WindowManager) ?: return
         if (removeNow) {
             if (this@Choco.isAttachedToWindow) {
+                onDismiss?.invoke()
                 windowManager.removeViewImmediate(this@Choco)
             }
             return
@@ -116,6 +129,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         anim.start()
         Handler().postDelayed({
             if (this@Choco.isAttachedToWindow) {
+                onDismiss?.invoke()
                 windowManager.removeViewImmediate(this@Choco)
             }
         }, ANIMATION_DURATION)
