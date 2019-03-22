@@ -7,6 +7,22 @@
 
 ### Usage
 
+```groovy
+allprojects {
+    repositories {
+    ...
+     maven { url 'https://jitpack.io' }
+```
+
+```groovy
+implementation 'com.github.o0o0oo00.Pudding:pudding:v1.1.2'
+
+// 如果想使用FancyDialog的话
+implementation 'com.github.o0o0oo00.Pudding:fancydialog:v1.1.2' 
+```
+
+
+
 GIF可能要等会就顺畅了，一开始可能会比较迟钝 (●ﾟωﾟ●)
 
 常见的可配置的几种形式
