@@ -49,6 +49,19 @@ Pudding.create(this) {
 }.show()
 ```
 
+```kotlin
+Pudding.create(this) {
+    setTitle("Choco Title")
+    setText("This is Text , it's very short and I don't like short \n This is Text , it's very short and I don't like short")
+    onShow {
+        Toast.makeText(this@MainActivity, "onShowListener", Toast.LENGTH_SHORT).show()
+    }
+    onDismiss {
+        Toast.makeText(this@MainActivity, "onDismissListener", Toast.LENGTH_SHORT).show()
+    }
+}.show()
+```
+
 
 
 
@@ -73,7 +86,7 @@ Each Activity has its own Pudding, which does not affect each other.
 
 1. 两种addView方式
     -   [x] activity decorView
-    -   [ ] windowManager 
+    -   [x] windowManager 
         -   [x] 动画显示
         -   [x] 生命周期控制
         -   [x] 有权限/无权限情况 (考虑到这个需求不是很大，而且每个项目的权限适配都不一致，而且国产手机权限这一块参差不齐，所以决定不做这一块了，对功能也没影响)
@@ -85,10 +98,8 @@ Each Activity has its own Pudding, which does not affect each other.
 
 3. 左右/上下滑动消失动画
 
-    - [ ] 
-
     - [x] 上下消失
-    - [ ] 左右滑动消失
+    - [x] 左右滑动消失
 
 4. Pudding cover dialog
 
@@ -99,6 +110,7 @@ Each Activity has its own Pudding, which does not affect each other.
 #### 可能会有的疑问：
 
 - [x] **Pudding**使用的是WindowManager 难道不需要申请权限吗？
+
   - [x] **Pudding**使用`WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL`的层级低于系统级层级`TYPE_SYSTEM_ALERT`也就是在2000之下，是不需要申请权限的。
 
 - [x] 不同的Activity对应的WindowManager是否相同
