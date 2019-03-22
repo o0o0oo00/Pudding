@@ -69,6 +69,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     // loading 形式
+    fun click8(view: View) {
+        Pudding.create(this) {
+            setTitle("Choco Title")
+            setText("This is Text , it's very short and I don't like short \n This is Text , it's very short and I don't like short")
+            enableInfiniteDuration = true
+            enableSwipeToDismiss()
+        }.show()
+    }
+
+    // loading 形式
     fun click7(view: View) {
         Pudding.create(this) {
             setTitle("Choco Title")

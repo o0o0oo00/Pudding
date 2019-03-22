@@ -98,12 +98,15 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         }
     }
 
-    fun hide(windowManager: WindowManager, removeNow: Boolean = false) {
+    fun hide(removeNow: Boolean = false) {
         if (!this@Choco.isAttachedToWindow) {
             return
         }
+        val windowManager = (this.context.getSystemService(Context.WINDOW_SERVICE) as? WindowManager) ?: return
         if (removeNow) {
-            windowManager.removeViewImmediate(this@Choco)
+            if (this@Choco.isAttachedToWindow) {
+                windowManager.removeViewImmediate(this@Choco)
+            }
             return
         }
         body.isClickable = false
@@ -340,6 +343,7 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
         this.enabledVibration = enabledVibration
     }
 
+
     /**
      * Show a button with the given text, and on click listener
      *
@@ -359,11 +363,24 @@ class Choco @JvmOverloads constructor(context: Context, attrs: AttributeSet? = n
 //        }
     }
 
-    // 供外部Button 主动调用dismiss()
-    fun hide() {
-        body.performClick()
-    }
+    /**
+     * Set whether to enable swipe to dismiss or not
+     */
+    fun enableSwipeToDismiss() {
+        body.setOnTouchListener(SwipeDismissTouchListener(body, object : SwipeDismissTouchListener.DismissCallbacks {
+            override fun canDismiss(): Boolean {
+                return true
+            }
 
+            override fun onDismiss(view: View) {
+                hide(true)
+            }
+
+            override fun onTouch(view: View, touch: Boolean) {
+                // Ignore
+            }
+        }))
+    }
 
     companion object {
         private val TAG = Choco::class.java.simpleName

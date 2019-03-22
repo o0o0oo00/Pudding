@@ -30,7 +30,6 @@ class Pudding : LifecycleObserver {
     fun show() {
         windowManager?.also {
             try {
-                log("show addView")
                 it.addView(choco, initLayoutParameter())
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -42,14 +41,12 @@ class Pudding : LifecycleObserver {
             if (choco.enableInfiniteDuration) {
                 return@postDelayed
             }
-            log("postDelayed hide")
-            choco.hide(windowManager ?: return@postDelayed)
+            choco.hide()
         }, Choco.DISPLAY_TIME)
 
         // click dismiss
         choco.body.setOnClickListener {
-            log("setOnClickListener hide")
-            choco.hide(windowManager ?: return@setOnClickListener)
+            choco.hide()
         }
 
     }
@@ -58,7 +55,7 @@ class Pudding : LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
         log("onDestroy removeViewImmediate")
-        choco.hide(windowManager ?: return, true)
+        choco.hide(true)
         owner.lifecycle.removeObserver(this)
     }
 
@@ -88,10 +85,8 @@ class Pudding : LifecycleObserver {
         activityWeakReference = WeakReference(activity)
         choco = Choco(activity)
         windowManager = activity.windowManager
-        log("setActivity windowManager = $windowManager")
 
         activity.lifecycle.addObserver(this)
-
 
         // 指定使用者的高阶函数named dsl 配置 choco属性
         choco.apply(block)
