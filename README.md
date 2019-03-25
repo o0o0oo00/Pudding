@@ -1,6 +1,8 @@
 # Pudding
 [![](https://jitpack.io/v/o0o0oo00/Pudding.svg)](https://jitpack.io/#o0o0oo00/Pudding)
 
+代替Toast/SnackBar新方式，使用WindowManager 无需申请权限
+
 ### WIKI
 
 [中文说明](https://github.com/o0o0oo00/Pudding/blob/master/WIKIPAGE.md)
