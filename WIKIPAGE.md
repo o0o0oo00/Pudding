@@ -1,16 +1,20 @@
-###  Window & WindowManager
+#  Window & WindowManager
 
-
+## 从老生常谈的WindowManager到手写一个Alert弹窗控件
 
 #### Window的添加与删除
 
 每一个Window都对应着一个View和一个ViewRootImpl。Window和View通过ViewRootImpl来建立联系。
 
-Window的添加过程实际上是通过WindowManager的addView来实现，但他是一个接口，真正的实现是WindowManagerImpl
+ViewRootImpl是Window的实际展现形式，因为WindowManager操作的都是View，而ViewRootImpl是继承的ViewParent
+
+通过WindowManager的addView来实现在屏幕上添加一个View，但它只是一个接口，真正的实现是WindowManagerImpl
 
 WindowManagerImpl这种工作模式是典型的桥接模式，将所有的操作全部委托给WindowManagerGlobal来实现，而其内部则是通过ViewRootImpl来更新界面并完成Window的添加过程。
 
 ##### 添加过程
+
+WindowManagerGlobal.java/addView
 
 ```kotlin
 root = new ViewRootImpl(view.getContext(), display);
@@ -19,7 +23,7 @@ mRoots.add(root);
 root.setView(view, wparams, panelParentView);
 ```
 
-最终会调用WindowManagerService的方法，
+这里的这个root，是新创建出的`ViewRootImpl(view.getContext(), display);`前面说了，它其实是Window的实际展现形式，暂且理解为window本身，这样我们将view添加到window本身上了。
 
 ##### 删除过程
 
@@ -86,7 +90,13 @@ mContentParent.removeAllViews();
 }
 ```
 
-PhoneWindow中 包含一个DecorView，如果没有就新建一个，通过`installDecor()`，内部调用`generateDecor(-1);`创建mDecor。
+PhoneWindow中 包含一个DecorView，
+
+如果为null就新建一个，通过`installDecor()`，内部调用`generateDecor(-1);`创建mDecor。
+
+如果mDecor不为null那么直接关联上phoneWindow`mDecor.setWindow(this);`
+
+
 
 拿到了mDecor后去生成布局`mContentParent = generateLayout(mDecor);`
 
@@ -119,7 +129,7 @@ DecorView添加到WIndowManager上
 ##### 不同的Activity对应的WindowManager是否相同
 
 -   **相同**的`WindowManager`，**不同**的`window`
--   他们所依赖的`WindowManager`，是通过`context.getSystemService()`方法获取的，所以不管有多少Activity，Dialog，WindowManager的实例只有一个
+-   他们所依赖的`WindowManager`，是通过`context.getSystemService()`方法获取的，所以不管有多少Activity，Dialog，WindowManager的"实例"只有一个
 -   `WindowManager`的实现类是`WindowManagerImpl`，而`WindowManagerImpl`中的addView，removeView等方法，又是直接调用了`WindowManagerGlobal`的相应方法。
 -   `WindowManagerImpl`中依赖的`WindowManagerGlobal`也是单例模式创建的，所以app范围内，`WindowManagerGlobal`实例也只有一个
 -   于是就解释了，不同的WindowManager为什么可以移除对方的View
