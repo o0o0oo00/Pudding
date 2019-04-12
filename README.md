@@ -129,15 +129,13 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 
 - [x] 不同的Activity对应的WindowManager是否相同
 
-    - [x] 相同的WindowManager，不同的window
-
-    他们所依赖的WindowManager，是通过context.getSystemService()方法获取的，所以不管有多少Activity，Dialog，WindowManager的实例只有一个
+    - [x] 不同的window，不同的WindowManager，相同的WindowManagerGlobal（最终实现view的添加、删除、更新）
 
 - [x] 不同的WindowManager为什么可以移除对方的View
 
-    - [x] 因为所有的Activity共同只有一个WindowManager
+    - [x] 因为所有的Activity共同只有一个WindowManagerGlobal（其内部持有所有添加的View的集合引用）
 
 - [ ] 如何去维护一个Pudding队列
 
     - [x] 用一个`Map<string,pudding>`
-    - [ ] 什么时间 去clear这个map
+    - [ ] 什么时间 去clear这个map (●ﾟωﾟ●)挠头？
