@@ -53,9 +53,12 @@ class Pudding : LifecycleObserver {
     // window manager must associate activity's lifecycle
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     fun onDestroy(owner: LifecycleOwner) {
-        log("onDestroy removeViewImmediate")
+        // this owner is your activity instance
         choco.hide(true)
         owner.lifecycle.removeObserver(this)
+        if (puddingMapX.containsKey(owner.toString())) {
+            puddingMapX.remove(owner.toString())
+        }
     }
 
     private fun initLayoutParameter(): WindowManager.LayoutParams {
@@ -107,12 +110,11 @@ class Pudding : LifecycleObserver {
         fun create(activity: AppCompatActivity, block: Choco.() -> Unit): Pudding {
             val pudding = Pudding()
             pudding.setActivity(activity, block)
-
             Handler(Looper.getMainLooper()).post {
                 puddingMapX[activity.toString()]?.choco?.let {
                     if (it.isAttachedToWindow) {
                         ViewCompat.animate(it).alpha(0F).withEndAction {
-                            if (it.isAttachedToWindow){
+                            if (it.isAttachedToWindow) {
                                 activity.windowManager.removeViewImmediate(it)
                             }
                         }
