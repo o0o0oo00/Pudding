@@ -139,3 +139,4 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 
     - [x] 用一个`Map<string,pudding>`
     - [X] 什么时间 去clear这个map (●ﾟωﾟ●)挠头？
+            when activity destory clean the key which is activity toString()
