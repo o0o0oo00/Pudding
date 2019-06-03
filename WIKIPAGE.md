@@ -1,16 +1,14 @@
 #  Window & WindowManager
 
-## 从老生常谈的WindowManager到手写一个Alert弹窗控件
+## 手写一个Alert弹窗控件
 
 #### Window的添加与删除
 
-每一个Window都对应着一个View和一个ViewRootImpl。Window和View通过ViewRootImpl来建立联系。
-
-ViewRootImpl是Window的实际展现形式，因为WindowManager操作的都是View，而ViewRootImpl是继承的ViewParent
+每一个Window都对应着一个View和一个ViewRootImpl。Window和View通过ViewRootImpl来建立联系(ViewRootImpl是Window的实际展现形式，它是视图层级结构的最顶部。)
 
 通过WindowManager的addView来实现在屏幕上添加一个View，但它只是一个接口，真正的实现是WindowManagerImpl
 
-WindowManagerImpl这种工作模式是典型的桥接模式，将所有的操作全部委托给WindowManagerGlobal来实现，而其内部则是通过ViewRootImpl来更新界面并完成Window的添加过程。
+WindowManagerImpl这种工作模式是典型的桥接模式，将所有的操作全部委托给WindowManagerGlobal这个**单例类**来实现，而其内部则是通过ViewRootImpl来更新界面并完成Window的添加过程。
 
 ##### 添加过程
 
@@ -24,6 +22,8 @@ root.setView(view, wparams, panelParentView);
 ```
 
 这里的这个root，是新创建出的`ViewRootImpl(view.getContext(), display);`前面说了，它其实是Window的实际展现形式，暂且理解为window本身，这样我们将view添加到window本身上了。
+
+真正的调用顺序：**windowManager -> WindowManagerImpl -> WindowManagerGlobal -> ViewRootImpl**
 
 ##### 删除过程
 
@@ -106,11 +106,11 @@ PhoneWindow中 包含一个DecorView，
 
 
 
-DecorView添加到WIndowManager上
+##### DecorView添加到WindowManager上
 
 在ActivityThread的handleResumeActivity方法中，首先会调用Activity的onResume方法，接着会调用Activity的`makeVisible()`
 
-只有在Activity的`makeVisible()`被调用的时候，DecorView才会被addview进WIndowmanager
+只有在Activity的`makeVisible()`被调用的时候，DecorView才会被addview进Windowmanager
 
 ```java
     void makeVisible() {
@@ -128,11 +128,9 @@ DecorView添加到WIndowManager上
 
 ##### 不同的Activity对应的WindowManager是否相同
 
--   **相同**的`WindowManager`，**不同**的`window`
--   他们所依赖的`WindowManager`，是通过`context.getSystemService()`方法获取的，所以不管有多少Activity，Dialog，WindowManager的"实例"只有一个
--   `WindowManager`的实现类是`WindowManagerImpl`，而`WindowManagerImpl`中的addView，removeView等方法，又是直接调用了`WindowManagerGlobal`的相应方法。
+-   **不同**的`WindowManager`对象，**相同**的`WindowManagerGlobal`
+-   `WindowManager` 只是一个`interface`，它真正的对象是`WindowManagerImpl`，而`WindowManagerImpl`中的addView，removeView等方法，又是直接调用了`WindowManagerGlobal`的相应方法。
 -   `WindowManagerImpl`中依赖的`WindowManagerGlobal`也是单例模式创建的，所以app范围内，`WindowManagerGlobal`实例也只有一个
--   于是就解释了，不同的WindowManager为什么可以移除对方的View
 
 
 
@@ -150,7 +148,7 @@ Dialog的弹窗需要Context，而这个Context必须是Activity，其内的Wind
  dialog.getWindow().setType(LayoutParams.TYPE_SYSTEM_OVERLAY)
 ```
 
-来实现一个系统级别的Dialog。But运行时权限了解一下、国产手机了解一下。
+来实现一个系统级别的Dialog。But运行时权限如果不给的话，就不会显示出来，显然这是不被接受的。
 
 我们知道View在window上的显示是有层级顺序的，层级高的覆盖在层级低的View之上。
 Activity的层级为 `TYPE_APPLICATION` 
@@ -169,9 +167,9 @@ android.view.WindowManager$BadTokenException: Unable to add window android.view.
 
 我们在这里验证了View的层级为2000以下的时候是不需要申请权限的
 
-那么我们要实现这个WindowManager添加的View显示在Dialog之上，就只剩剩下一个东西了，就是降低**Dialog**的背景等级/改为使用**PopUpWindow**来代替**Dialog**。
+那么我们要实现这个WindowManager添加的View显示在Dialog之上，就只剩剩下一个东西了，就是降低**Dialog**的背景等级 或者 改为使用**PopUpWindow**来代替**Dialog**。
 
-改Dialog的背景阴影为Activity的透明度
+我采用的是，改Dialog的背景阴影为Activity的透明度
 
 #### Window Leak
 
@@ -200,3 +198,4 @@ owner.lifecycle.removeObserver(this) // 移除监听事件
 }
 ```
 
+[代码详情](https://github.com/o0o0oo00/Pudding)
