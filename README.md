@@ -17,7 +17,7 @@ allprojects {
 ```
 
 ```groovy
-implementation 'com.github.o0o0oo00.Pudding:pudding:v1.1.2'
+   implementation 'com.github.o0o0oo00:Pudding:1.2.0'
 ```
 
 
@@ -135,7 +135,8 @@ Use activity decorView we can show a view on top of Activity。but when dialog i
 
     - [x] 因为所有的Activity共同只有一个WindowManagerGlobal（其内部持有所有添加的View的集合引用）
 
-- [ ] 如何去维护一个Pudding队列
+- [X] 如何去维护一个Pudding队列
 
     - [x] 用一个`Map<string,pudding>`
-    - [ ] 什么时间 去clear这个map (●ﾟωﾟ●)挠头？
+    - [X] 什么时间 去clear这个map (●ﾟωﾟ●)挠头？
+            when activity destory clean the key which is activity toString()
