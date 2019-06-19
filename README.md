@@ -1,5 +1,6 @@
 # Pudding
 [![](https://jitpack.io/v/o0o0oo00/Pudding.svg)](https://jitpack.io/#o0o0oo00/Pudding)
+<a title="Hits" target="_blank" href="https://github.com/o0o0oo00/Pudding"><img src="https://hits.b3log.org/o0o0oo00/Pudding.svg"></a>
 
 代替Toast/SnackBar新方式，使用WindowManager 无需申请权限
 
