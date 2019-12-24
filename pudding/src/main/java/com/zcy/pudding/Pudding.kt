@@ -75,7 +75,9 @@ class Pudding : LifecycleObserver {
         layoutParams.flags =
             WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE or // 不获取焦点，以便于在弹出的时候 下层界面仍然可以进行操作
                     WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN or
-                    WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR // 确保你的内容不会被装饰物(如状态栏)掩盖.
+                    WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR or  // 确保你的内容不会被装饰物(如状态栏)掩盖.
+                    WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM // 确保输入法弹出的时候不会被挤到状态栏下面
+
         // popWindow的层级为 TYPE_APPLICATION_PANEL
         layoutParams.type = WindowManager.LayoutParams.TYPE_APPLICATION_SUB_PANEL
 
