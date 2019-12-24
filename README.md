@@ -18,7 +18,7 @@ allprojects {
 ```
 
 ```groovy
-   implementation 'com.github.o0o0oo00:Pudding:1.2.0'
+   implementation 'com.github.o0o0oo00:Pudding:1.2.1'
 ```
 
 
